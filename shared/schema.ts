@@ -6,7 +6,7 @@ import { z } from "zod";
 export const students = pgTable("students", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
-  studentId: varchar("student_id", { length: 20 }).notNull().unique(),
+  studentId: varchar("student_id", { length: 20 }).unique(),
   class: varchar("class", { length: 10 }).notNull(),
   section: varchar("section", { length: 5 }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -68,6 +68,7 @@ export const marksRelations = relations(marks, ({ one }) => ({
 // Zod schemas
 export const insertStudentSchema = createInsertSchema(students).omit({
   id: true,
+  studentId: true,
   createdAt: true,
 });
 
