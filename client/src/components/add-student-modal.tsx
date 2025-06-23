@@ -2,16 +2,29 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { insertStudentSchema, type InsertStudent } from "@shared/schema";
@@ -21,7 +34,10 @@ interface AddStudentModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export default function AddStudentModal({ open, onOpenChange }: AddStudentModalProps) {
+export default function AddStudentModal({
+  open,
+  onOpenChange,
+}: AddStudentModalProps) {
   const { toast } = useToast();
 
   const form = useForm<InsertStudent>({
@@ -75,16 +91,13 @@ export default function AddStudentModal({ open, onOpenChange }: AddStudentModalP
                 <FormItem>
                   <FormLabel>Student Name</FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="Enter student name" 
-                      {...field} 
-                    />
+                    <Input placeholder="Enter student name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
+
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
@@ -92,13 +105,20 @@ export default function AddStudentModal({ open, onOpenChange }: AddStudentModalP
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Class</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select Class" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
+                        <SelectItem value="6">Class 6</SelectItem>
+                        <SelectItem value="7">Class 7</SelectItem>
+                        <SelectItem value="8">Class 8</SelectItem>
+                        <SelectItem value="9">Class 9</SelectItem>
                         <SelectItem value="10">Class 10</SelectItem>
                         <SelectItem value="11">Class 11</SelectItem>
                         <SelectItem value="12">Class 12</SelectItem>
@@ -108,14 +128,17 @@ export default function AddStudentModal({ open, onOpenChange }: AddStudentModalP
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="section"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Section</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select Section" />
@@ -132,19 +155,16 @@ export default function AddStudentModal({ open, onOpenChange }: AddStudentModalP
                 )}
               />
             </div>
-            
+
             <div className="flex justify-end space-x-3 pt-4">
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={() => onOpenChange(false)}
               >
                 Cancel
               </Button>
-              <Button 
-                type="submit" 
-                disabled={createStudentMutation.isPending}
-              >
+              <Button type="submit" disabled={createStudentMutation.isPending}>
                 {createStudentMutation.isPending ? "Adding..." : "Add Student"}
               </Button>
             </div>
