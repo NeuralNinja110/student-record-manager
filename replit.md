@@ -84,8 +84,11 @@ This is a full-stack Student Management System built with React (frontend) and E
 
 ## Changelog
 
-Changelog:
-- June 23, 2025. Initial setup
+- June 23, 2025: Initial setup with PostgreSQL database and React frontend
+- June 23, 2025: Fixed student ID generation to handle deleted students properly
+- June 23, 2025: Resolved duplicate key constraint error in student creation
+- June 23, 2025: Connected to Neon PostgreSQL database successfully
+- June 23, 2025: Added sample subjects (Mathematics, Physics, Chemistry, Biology, English)
 
 ## User Preferences
 

@@ -77,9 +77,9 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createStudent(insertStudent: InsertStudent): Promise<Student> {
-    // Generate student ID
-    const studentCount = await db.select({ count: count() }).from(students);
-    const studentId = `STU${String(studentCount[0].count + 1).padStart(3, '0')}`;
+    // Generate unique student ID by finding the next available number
+    const nextNumber = await this.getNextStudentNumber();
+    const studentId = `STU${String(nextNumber).padStart(3, '0')}`;
     
     const [student] = await db
       .insert(students)
@@ -91,6 +91,26 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return student;
+  }
+
+  private async getNextStudentNumber(): Promise<number> {
+    // Get the highest student number from existing student IDs
+    const studentRecords = await db.select({ studentId: students.studentId }).from(students);
+    
+    let maxNumber = 0;
+    for (const record of studentRecords) {
+      if (record.studentId) {
+        const match = record.studentId.match(/STU(\d+)/);
+        if (match) {
+          const number = parseInt(match[1], 10);
+          if (number > maxNumber) {
+            maxNumber = number;
+          }
+        }
+      }
+    }
+    
+    return maxNumber + 1;
   }
 
   async updateStudent(id: number, updateData: Partial<InsertStudent>): Promise<Student> {
