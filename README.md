@@ -89,7 +89,3 @@ This is a full-stack Student Management System built with React (frontend) and E
 - June 23, 2025: Resolved duplicate key constraint error in student creation
 - June 23, 2025: Connected to Neon PostgreSQL database successfully
 - June 23, 2025: Added sample subjects (Mathematics, Physics, Chemistry, Biology, English)
-
-## User Preferences
-
-Preferred communication style: Simple, everyday language.
